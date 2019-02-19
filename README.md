@@ -1,4 +1,5 @@
 #Snake
+
 A barebones, no frills version of Snake in Python and pygame.
 Press p to play and x to quit.
 
