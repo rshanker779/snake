@@ -1,5 +1,4 @@
 from random import randrange
-
 import pygame
 
 
