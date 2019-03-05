@@ -289,7 +289,7 @@ class GameState:
             # If not started, wait for input key and then start
             self.screen.blit(self.start_screen.font.render(self.start_screen.text, True, StartGameParams.FONT_COLOUR),
                              StartGameParams.LOCATION)
-            keys = pygame.key.get_pressed()
+            keys = self.get_keys_pressed()
             if keys[pygame.K_p]:
                 self.game_start = True
         self.update_display()
@@ -321,7 +321,7 @@ class GameState:
     def do_repeated_snake_action(self):
         """Update the direction of the head based on key press"""
         direction = self.snake.head.direction
-        keys = pygame.key.get_pressed()
+        keys = self.get_keys_pressed()
         if keys[pygame.K_LEFT]:
             if direction != (1, 0):
                 direction = (-1, 0)
@@ -338,6 +338,19 @@ class GameState:
             self.game_over_death()
         self.snake.set_direction(direction)
         self.snake.move_snake()
+
+    def get_keys_pressed(self):
+        keys = pygame.key.get_pressed()
+        return keys
+
+    def initialise_keys(self, keys):
+        """Method for bots to initialise keys used in games"""
+        keys[pygame.K_p] = 1  # To start game if not already started
+        keys[pygame.K_LEFT] = 0
+        keys[pygame.K_RIGHT] = 0
+        keys[pygame.K_UP] = 0
+        keys[pygame.K_DOWN] = 0
+        keys[pygame.K_x] = 0
 
     def refresh_snake_sprites(self):
         """Add any new segments to sprite groups, and clear new segments"""
@@ -365,16 +378,20 @@ class GameState:
         self.game_over = True
 
 
-def main():
-    """Main event loop function"""
-    pygame.init()
-    game_state = GameState()
+def run_game(game_state):
+
     while not game_state.game_over:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_state.game_over = True
         game_state.do_repeated_action()
     pygame.quit()
+
+def main():
+    """Main event loop function"""
+    pygame.init()
+    game_state = GameState()
+    run_game(game_state)
 
 
 if __name__ == '__main__':
