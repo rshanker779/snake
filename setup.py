@@ -15,8 +15,10 @@ setup(name="snake",
       python_requires='>=3.5',
       install_requires=['pygame',
                         'setuptools'],
-      packages=['src'],
-      entry_points={'gui_scripts': ['python-snake=src.snake:main']},
-      zip_safe=True
+      packages=['src/game','src/game_bots'],
+      entry_points={'gui_scripts': ['python-snake=src.game.snake:main',
+                                    'random-snake=src.game_bots.random_snake:main',
+                                    'distance-snake=src.game_bots.distance_snake:main'
+                                    ]},
 
 )
