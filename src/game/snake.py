@@ -235,6 +235,7 @@ class GameState:
     """Class to hold snake and food objects we need in our game state"""
 
     def __init__(self):
+        pygame.init()
         self.game_start = False
         self.start_screen = StartGameBox("Press p to play")
         self.game_over = False
@@ -379,7 +380,6 @@ class GameState:
 
 
 def run_game(game_state):
-
     while not game_state.game_over:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -389,7 +389,6 @@ def run_game(game_state):
 
 def main():
     """Main event loop function"""
-    pygame.init()
     game_state = GameState()
     run_game(game_state)
 
